@@ -65,6 +65,9 @@ class BaseScraper:
 
     @timeit
     def proceed(self):
+        """
+        Use this method to wrap self._proceed with timeit decorator
+        """
         return self._proceed()
 
     def _proceed(self):
