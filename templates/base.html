@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <title>WorldCup2018</title>
+</head>
+<body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Refresh()
+    });
+    setInterval(function() {Refresh();}, 60000); // refresh every minute
+    function headers() {
+        let myHeaders = new Headers();
+        myHeaders.append('pragma', 'no-cache');
+        myHeaders.append('cache-control', 'no-cache');
+        return myHeaders
+    }
+
+    function Refresh() {
+        fetch('/_refresh', {'headers': headers()})
+            .then(response => response.text()).then(raw => {
+                document.getElementById('table').innerHTML = raw;
+            })
+    }
+    function SaveFile() {
+        Refresh();
+        fetch('/_save', {'headers': headers()})
+            .then(response => response.blob())
+            .then(file => {
+                    console.log(file);
+                    let link = document.createElement("a");
+                    link.href = URL.createObjectURL(file);
+                    link.download = "WorldCupOdds.xls";
+                    link.click()
+                })
+    }
+</script>
+<div class="pb-3">
+    <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Refresh the current state"
+            onclick="Refresh()">Refresh</button>
+    <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Save current table to *.xls file"
+            onclick="SaveFile()"
+    >Save </button>
+</div>
+<div id="table"></div>
+</body>
+</html>

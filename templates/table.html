@@ -1,0 +1,22 @@
+<div id="table">
+  <table class="table table-sm table-hover table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      {% for company in data['keys'] %}
+        <th scope="col">{{ company }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for country, odds in data['data'] %}
+      <tr>
+        <th scope="row">{{ country }}</th>
+        {% for odd in odds %}
+          <td>{{odd}}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
