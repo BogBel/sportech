@@ -15,6 +15,7 @@ from core.tools import timeit
 class BaseScraper:
     ROOT_URL = None
     COMPANY_NAME = None
+    TIMEOUT = 30  # time for driver waiting while element will be loaded
 
     def __init__(
             self,
@@ -98,7 +99,7 @@ class BaseScraper:
                     # sometimes there are WebDriverExceptions raised when
                     # clickable element not in view
                     self.driver.execute_script(
-                        "arguments[0].scrollIntoView();",
+                        "arguments[0].scrollIntoView({inline: 'center'});",
                         element
                     )
                     continue
@@ -128,6 +129,6 @@ class BaseScraper:
         :param path: xpath expression
         :return: WebElement object
         """
-        return WebDriverWait(self.driver, 180).until(
-            expected_conditions.visibility_of_element_located((By.XPATH, path))
+        return WebDriverWait(self.driver, self.TIMEOUT).until(
+            expected_conditions.element_to_be_clickable((By.XPATH, path))
         )

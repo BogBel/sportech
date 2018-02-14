@@ -83,7 +83,7 @@ if __name__ == '__main__':
                 delay=args.delay,
                 executable_path=args.path,
                 driver_extra_options=(
-                    '--proxy-server=http://163.172.27.213:3128',
+                    '--proxy-server=http://54.38.79.85:9000',
                     '--headless',
                 )
             ),

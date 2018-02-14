@@ -6,14 +6,14 @@ class SkybetScraper(BaseScraper):
     # while loading skybet.com in headless mode.
     ROOT_URL = 'https://m.skybet.com/football'
     COMPANY_NAME = 'SkyBet'
+    DELAY = 180  # because of proxy
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.xpath_map = (
             ('//ul[@class="scrolling-nav__tablist"]/li/'
              'a[text()="Competitions"]'),
-            ('//div[@id="competitions"]//'
-             'i[@data-ui-state="competitions-world-cup-2018"]'),
+            '//div[@id="competitions"]//span[text()="World Cup 2018"]',
             ('//table[@class="market-table toggle-market"]/thead/tr/th/'
              'a[@data-toggle-tab="competitions-world-cup-2018-outrights"]'),
             ('//table[@class="market-table competitions-world-cup-2018 '
