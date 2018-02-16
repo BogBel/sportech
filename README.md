@@ -56,6 +56,13 @@ You can specify delay in seconds via command-line args
 python app.py --delay 30
 ```
 
+You can paste proxy in format: ***ip:port*** for Skybet parser via
+
+```
+python app.py --proxy 178.62.81.68:8080
+```
+
+
 ## Authors
 
 * **Bohdan Biloshytskiy** - *Initial work* - [BogBel](https://github.com/BogBel)

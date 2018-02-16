@@ -2,7 +2,11 @@ import logging
 import time
 
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException, WebDriverException
+from selenium.common.exceptions import (
+    StaleElementReferenceException,
+    TimeoutException,
+    WebDriverException
+)
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -35,6 +39,7 @@ class BaseScraper:
             ...
         )
         """
+        logging.info(f'Driver for {self.COMPANY_NAME} created')
         options = Options()
         if driver_extra_options:
             for opt in driver_extra_options:
@@ -60,6 +65,8 @@ class BaseScraper:
                 self.driver.get(self.ROOT_URL)
                 self._navigate_by_xpath()
                 return
+            except StaleElementReferenceException:
+                continue
             except WebDriverException as err:
                 logging.error(repr(err))
                 continue

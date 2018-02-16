@@ -62,6 +62,13 @@ def get_arg_parser():
         type=int,
         help='Delay between scrapping requests. Default is 5 minutes'
     )
+    arg_parser.add_argument(
+        '--proxy',
+        action='store',
+        default='178.62.81.68:8080',
+        dest='proxy',
+        help='Proxy for Skybet parses should be like: \'ip:port\''
+    )
     return arg_parser
 
 
@@ -83,7 +90,7 @@ if __name__ == '__main__':
                 delay=args.delay,
                 executable_path=args.path,
                 driver_extra_options=(
-                    '--proxy-server=http://54.38.79.85:9000',
+                    f'--proxy-server=http://{args.proxy}',
                     '--headless',
                 )
             ),
